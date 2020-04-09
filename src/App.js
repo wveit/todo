@@ -1,26 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import FilteredTodoList from './FilteredTodoList';
 
-function App() {
+const TODOS = [
+  {isComplete: false, id: 1, text: "go get some katsup from the store"},
+  {isComplete: false, id: 2, text: "get some exercise"},
+  {isComplete: true, id: 3, text: "do a full and rewarding work day"},
+  {isComplete: false, id: 4, text: "eat pizza and other health food"},
+  {isComplete: true, id: 5, text: "find out about underwater airplanes"}
+];
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <FilteredTodoList todos={TODOS} />
   );
 }
-
-export default App;
