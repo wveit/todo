@@ -1,10 +1,15 @@
 import React from 'react';
+import TodoItem from './TodoItem';
 
 export default function TodoList(props) {
 
     let todoItems = "empty list";
     if(props.todos) {
-        todoItems = props.todos.map((item) => <div key={item.id}>{item.id}) {item.text} [{item.isComplete ? "complete" : "not complete"}]</div>);
+        todoItems = props.todos.map((todo) => {
+            return <TodoItem key={todo.id} 
+                            todo={todo} 
+                            onToggleIsComplete={props.onToggleIsComplete} />;
+        });
     }
 
     return (

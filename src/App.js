@@ -20,6 +20,7 @@ export default class App extends React.Component {
     };
 
     this.onAddTodo = this.onAddTodo.bind(this);
+    this.handleTodoToggle = this.handleTodoToggle.bind(this);
   }
 
   onAddTodo(text) {
@@ -31,11 +32,24 @@ export default class App extends React.Component {
     });
   }
 
+  handleTodoToggle(id) {
+    console.log(`toggled: ${id}`);
+    this.setState((state, props) => {
+      const todoIndex = state.todos.findIndex(todo => todo.id === id);
+      if(todoIndex === -1)
+        return state;
+      const oldTodo = state.todos[todoIndex];
+      const newTodo = {id, text: oldTodo.text, isComplete: !oldTodo.isComplete};
+      const newTodos = [...state.todos];
+      newTodos[todoIndex] = newTodo;
+      return {todos: newTodos};
+    });
+  }
+
   render() {
     return (
       <div className="App">
-        <TodoEntry onAddTodo={this.onAddTodo} value/>
-        <FilteredTodoList todos={this.state.todos} />
+        <FilteredTodoList todos={this.state.todos} onToggleIsComplete={this.handleTodoToggle}/>
       </div>
     );
   }

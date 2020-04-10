@@ -53,7 +53,7 @@ export default class FilteredTodoList extends React.Component {
                     filterSelection={this.state.currentFilterSelection}
                     onTextChange={this.onTextChange}
                     onFilterSelection={this.onFilterSelection} />
-            <TodoList todos={filteredTodos} />
+            <TodoList todos={filteredTodos} onToggleIsComplete={this.props.onToggleIsComplete} />
         </div>
         );
     }
