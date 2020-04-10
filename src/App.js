@@ -1,6 +1,6 @@
 import React from 'react';
 import FilteredTodoList from './FilteredTodoList';
-import TodoEntry from './TodoEntry';
+import NewTodoEntry from './NewTodoEntry';
 
 const TODOS = [
   {isComplete: false, id: 1, text: "go get some katsup from the store"},
@@ -49,6 +49,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <NewTodoEntry onAddTodo={this.onAddTodo} value/>
         <FilteredTodoList todos={this.state.todos} onToggleIsComplete={this.handleTodoToggle}/>
       </div>
     );

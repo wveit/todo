@@ -19,8 +19,6 @@ export default function Filter(props) {
             props.onFilterSelection(filterType);
     }
 
-    console.log(`props.filterSelection: ${props.filterSelection}`);
-
     const allButtonStyle = (props.filterSelection === constants.ALL ? selectedButtonStyle : buttonStyle);
     const completeButtonStyle = (props.filterSelection === constants.COMPLETE ? selectedButtonStyle : buttonStyle);
     const notCompleteButtonStyle = (props.filterSelection === constants.NOT_COMPLETE ? selectedButtonStyle : buttonStyle);

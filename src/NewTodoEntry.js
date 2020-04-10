@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function TodoEntry(props) {
+export default function NewTodoEntry(props) {
 
     function handleOnClick() {
         if(props.onAddTodo)

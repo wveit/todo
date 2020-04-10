@@ -32,8 +32,6 @@ export default class FilteredTodoList extends React.Component {
         const filter = this.state.currentFilterSelection;
         const filterText = this.state.filterText;
         const regex = new RegExp(filterText, "i");
-        console.log(`regex: ${regex}`);
-        window.r = regex;
 
         let filteredTodos = todos;
         filteredTodos = filteredTodos.filter(todo => {
@@ -45,7 +43,6 @@ export default class FilteredTodoList extends React.Component {
         if(filter === constants.NOT_COMPLETE) {
             filteredTodos = filteredTodos.filter(todo => !todo.isComplete);
         }
-
 
         return (
         <div>
