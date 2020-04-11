@@ -49,6 +49,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div className="App">
+        <h1>Todo List</h1>
         <NewTodoEntry onAddTodo={this.onAddTodo} value/>
         <FilteredTodoList todos={this.state.todos} onToggleIsComplete={this.handleTodoToggle}/>
       </div>
