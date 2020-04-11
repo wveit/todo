@@ -1,31 +1,25 @@
 import React from 'react';
 import FilteredTodoList from './FilteredTodoList';
 import NewTodoEntry from './NewTodoEntry';
+import LocalStorageTodoSaver from './LocalStorageTodoSaver';
 
-const TODOS = [
-  {isComplete: false, id: 1, text: "go get some katsup from the store"},
-  {isComplete: false, id: 2, text: "get some exercise"},
-  {isComplete: true, id: 3, text: "do a full and rewarding work day"},
-  {isComplete: false, id: 4, text: "eat pizza and other health food"},
-  {isComplete: true, id: 5, text: "find out about underwater airplanes"}
-];
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      todos: TODOS,
-      nextId: 6
+      todos: [],
+      nextId: 0
     };
 
     this.onAddTodo = this.onAddTodo.bind(this);
     this.handleTodoToggle = this.handleTodoToggle.bind(this);
+    this.handleTodosLocalStorageRead = this.handleTodosLocalStorageRead.bind(this);
   }
 
   onAddTodo(text) {
-    console.log(text);
-    this.setState((state, props) => {
+    this.setState((state) => {
       const newTodo = {isComplete: false, id: state.nextId, text: text};
       const newNextId = state.nextId + 1;
       return {todos: state.todos.concat([newTodo]), nextId: newNextId};
@@ -33,7 +27,6 @@ export default class App extends React.Component {
   }
 
   handleTodoToggle(id) {
-    console.log(`toggled: ${id}`);
     this.setState((state, props) => {
       const todoIndex = state.todos.findIndex(todo => todo.id === id);
       if(todoIndex === -1)
@@ -46,12 +39,19 @@ export default class App extends React.Component {
     });
   }
 
+  handleTodosLocalStorageRead(todos) {
+    const highestId = todos.reduce((highestId, todo) => todo.id > highestId ? todo.id : highestId, -1);
+    const nextId = highestId + 1;
+    this.setState({todos, nextId});
+  }
+
   render() {
     return (
       <div className="App">
         <h1>Todo List</h1>
         <NewTodoEntry onAddTodo={this.onAddTodo} value/>
         <FilteredTodoList todos={this.state.todos} onToggleIsComplete={this.handleTodoToggle}/>
+        <LocalStorageTodoSaver todos={this.state.todos} onRead={this.handleTodosLocalStorageRead}/>
       </div>
     );
   }

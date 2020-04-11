@@ -18,12 +18,10 @@ export default class FilteredTodoList extends React.Component {
     }
 
     onTextChange(text) {
-        console.log(`filter text: ${text}`);
         this.setState({filterText: text});
     }
 
     onFilterSelection(selection) {
-        console.log(`filter selection: ${selection}`);
         this.setState({currentFilterSelection: selection});
     }
     
