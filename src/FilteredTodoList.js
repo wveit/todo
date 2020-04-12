@@ -4,24 +4,16 @@ import TodoList from './TodoList';
 import * as constants from './constants';
 
 export default class FilteredTodoList extends React.Component {
-    
-    constructor(props) {
-        super(props);
+    state = {
+        filterText: "",
+        currentFilterSelection: constants.ALL
+    };
 
-        this.state = {
-            filterText: "",
-            currentFilterSelection: constants.ALL
-        };
-
-        this.onTextChange = this.onTextChange.bind(this);
-        this.onFilterSelection = this.onFilterSelection.bind(this);
-    }
-
-    onTextChange(text) {
+    onTextChange = text => {
         this.setState({filterText: text});
     }
 
-    onFilterSelection(selection) {
+    onFilterSelection = selection => {
         this.setState({currentFilterSelection: selection});
     }
     
@@ -48,7 +40,9 @@ export default class FilteredTodoList extends React.Component {
                     filterSelection={this.state.currentFilterSelection}
                     onTextChange={this.onTextChange}
                     onFilterSelection={this.onFilterSelection} />
-            <TodoList todos={filteredTodos} onToggleIsComplete={this.props.onToggleIsComplete} />
+            <TodoList   todos={filteredTodos} 
+                        onToggleIsComplete={this.props.onToggleIsComplete}
+                        onDelete={this.props.onDelete} />
         </div>
         );
     }

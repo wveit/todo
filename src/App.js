@@ -12,13 +12,9 @@ export default class App extends React.Component {
       todos: [],
       nextId: 0
     };
-
-    this.onAddTodo = this.onAddTodo.bind(this);
-    this.handleTodoToggle = this.handleTodoToggle.bind(this);
-    this.handleTodosLocalStorageRead = this.handleTodosLocalStorageRead.bind(this);
   }
 
-  onAddTodo(text) {
+  onAddTodo = text => {
     this.setState((state) => {
       const newTodo = {isComplete: false, id: state.nextId, text: text};
       const newNextId = state.nextId + 1;
@@ -26,7 +22,7 @@ export default class App extends React.Component {
     });
   }
 
-  handleTodoToggle(id) {
+  handleTodoToggle = id => {
     this.setState((state, props) => {
       const todoIndex = state.todos.findIndex(todo => todo.id === id);
       if(todoIndex === -1)
@@ -39,10 +35,18 @@ export default class App extends React.Component {
     });
   }
 
-  handleTodosLocalStorageRead(todos) {
+  handleTodosLocalStorageRead = todos => {
     const highestId = todos.reduce((highestId, todo) => todo.id > highestId ? todo.id : highestId, -1);
     const nextId = highestId + 1;
     this.setState({todos, nextId});
+  }
+
+  handleTodoDelete = id => {
+    console.log(`delete ${id}`);
+    this.setState((state, props) => {
+      const todos = this.state.todos.filter(todo => todo.id !== id);
+      return {todos};
+    });
   }
 
   render() {
@@ -50,7 +54,9 @@ export default class App extends React.Component {
       <div className="App">
         <h1>Todo List</h1>
         <NewTodoEntry onAddTodo={this.onAddTodo} value/>
-        <FilteredTodoList todos={this.state.todos} onToggleIsComplete={this.handleTodoToggle}/>
+        <FilteredTodoList todos={this.state.todos} 
+                          onToggleIsComplete={this.handleTodoToggle}
+                          onDelete={this.handleTodoDelete} />
         <LocalStorageTodoSaver todos={this.state.todos} onRead={this.handleTodosLocalStorageRead}/>
       </div>
     );

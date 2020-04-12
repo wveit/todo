@@ -8,7 +8,8 @@ export default function TodoList(props) {
         todoItems = props.todos.map((todo) => {
             return <TodoItem key={todo.id} 
                             todo={todo} 
-                            onToggleIsComplete={props.onToggleIsComplete} />;
+                            onToggleIsComplete={props.onToggleIsComplete}
+                            onDelete={props.onDelete} />;
         });
     }
 
